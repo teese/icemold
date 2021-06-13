@@ -161,7 +161,7 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
                 translate([- 7, - 25, 3.5]) lattice(sx, sy, h, th, n);
 
                 // surrounding wall
-                wall_thickness = 0.5;
+                wall_thickness = 0.75;
                 difference() {
                     translate([- 7, - 25, 3]) linear_extrude(6.5) square([mold_length_x, width_y + 1]);
                     translate([- 7 + wall_thickness, - 25 + wall_thickness, 3]) linear_extrude(11) square([mold_length_x
@@ -169,8 +169,8 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
                 }
             }
             // cut a hole for the ice_block_text out of the lattice
-            translate([ice_block_x_center, 0, 0]) linear_extrude(10) offset(r = font_offset) create_ice_block_text(
-            ice_block_text);
+            translate([ice_block_x_center, 0, ice_block_text_height * 0.5 - 1]) linear_extrude(ice_block_text_height * 0.5) offset(r = font_offset) create_ice_block_text(ice_block_text);
+            translate([ice_block_x_center, 0, ice_block_text_height * 0.5 + 1]) linear_extrude(ice_block_text_height * 0.5) offset(r = font_offset - 1) create_ice_block_text(ice_block_text);
         }
 }
 
