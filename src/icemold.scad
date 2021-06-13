@@ -18,34 +18,14 @@ module lattice(sx, sy, h, th, n)
 // Start MIT license (c) 2021 Mark Teese
 
 //------------------------------------------------//
-//              CUSTOMISABLE TEXT                 //
-//------------------------------------------------//
-$fn = 20;
-
-ice_block_text = "ICE";
-mold_length_x = 92;
-
-wall_text_lhs_top = "Team";
-wall_text_lhs_bottom = "Ice";
-wall_text_rhs_top = "Inspired";
-wall_text_rhs_centre = "Creative";
-wall_text_rhs_bottom = "Empathic";
-
-wall_lhs_text_x_offset_from_centre = 20;
-wall_rhs_text_x_offset_from_centre = 20;
-
-ice_block_font = "Sledge regular";
-
-//------------------------------------------------//
 //                  TEXT MOLD                     //
 //------------------------------------------------//
-module ice_mold(ice_block_text, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
+module ice_mold(ice_block_text, ice_block_font, font_size, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
 wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, wall_rhs_text_x_offset_from_centre) {
 
     font_offset = 1;
-    font_size = 50;
     ice_block_text_height = 8.5;
-    ice_block_text_spacing = 1.1;
+    ice_block_text_spacing = 1.3;
     ice_block_x_center = (mold_length_x - (mold_length_x * 0.12)) / 2;
     width_y = 50;
 
@@ -145,7 +125,7 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
             translate([- 7, - 26, - 20]) polyhedron(IceCubePointsOuter, IceCubeFaces);
             union() {
                 translate([- 9, - 24, - 22]) polyhedron(IceCubePointsInner, IceCubeFaces);
-                translate([ice_block_x_center, 0, - 5]) linear_extrude(10) offset(r = - 1) {
+                translate([ice_block_x_center, 0, - 5]) linear_extrude(20) offset(r = font_offset) {
                     text(ice_block_text, size = font_size, spacing = ice_block_text_spacing, font = ice_block_font,
                     halign = "center", valign = "center");
                 }
@@ -180,9 +160,10 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
                 translate([- 7, - 25, 3.5]) lattice(sx, sy, h, th, n);
 
                 // surrounding wall
+                wall_thickness = 0.5;
                 difference() {
-                    translate([- 7, - 25, 3]) linear_extrude(6.5) square([mold_length_x, width_y + 1]);
-                    translate([- 6, - 24, 3]) linear_extrude(11) square([mold_length_x - 2, width_y - 1]);
+                    translate([-7, -25, 3]) linear_extrude(6.5) square([mold_length_x, width_y + 1]);
+                    translate([-7 + wall_thickness, - 25 + wall_thickness, 3]) linear_extrude(11) square([mold_length_x - (wall_thickness * 2), width_y + 1 - (wall_thickness * 2)]);
                 }
             }
             // cut a hole for the ice_block_text out of the lattice

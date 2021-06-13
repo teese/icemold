@@ -13,7 +13,8 @@ use <icemold.scad>;
 $fn = 20;
 
 ice_block_text = "GIN";
-mold_length_x = 85;
+font_size = 45;
+mold_length_x = 95;
 
 wall_text_lhs_top = "Since";
 wall_text_lhs_bottom = "1850";
@@ -26,5 +27,5 @@ wall_rhs_text_x_offset_from_centre = 20;
 
 ice_block_font = "Sledge regular";
 
-ice_mold(ice_block_text, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
+ice_mold(ice_block_text, ice_block_font, font_size, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
 wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, wall_rhs_text_x_offset_from_centre);
