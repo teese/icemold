@@ -20,19 +20,18 @@ module lattice(sx, sy, h, th, n)
 //------------------------------------------------//
 //                  TEXT MOLD                     //
 //------------------------------------------------//
-module ice_mold(ice_block_text, ice_block_font, font_size, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
+module ice_mold(ice_block_text, ice_block_font, font_size, text_spacing, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
 wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, wall_rhs_text_x_offset_from_centre) {
 
     font_offset = 1;
     ice_block_text_height = 8.5;
-    ice_block_text_spacing = 1.3;
     ice_block_x_center = (mold_length_x - (mold_length_x * 0.12)) / 2;
     width_y = 50;
 
     module create_ice_block_text(input_text) {
         halign = "center";
         valign = "center";
-        text(input_text, size = font_size, spacing = ice_block_text_spacing, font = ice_block_font, halign = halign,
+        text(input_text, size = font_size, spacing = text_spacing, font = ice_block_font, halign = halign,
         valign = valign);
     }
 
@@ -55,7 +54,7 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
             translate([ice_block_x_center, 0, 1]) create_ice_block_text_outline();
             translate([ice_block_x_center, 0, ice_block_text_height + 0.5]) linear_extrude(0.5) offset(r = font_offset)
                 {
-                    text(ice_block_text, size = font_size, spacing = ice_block_text_spacing, font = ice_block_font,
+                    text(ice_block_text, size = font_size, spacing = text_spacing, font = ice_block_font,
                     halign = "center", valign = "center");
                 }
         }
@@ -126,7 +125,7 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
             union() {
                 translate([- 9, - 24, - 22]) polyhedron(IceCubePointsInner, IceCubeFaces);
                 translate([ice_block_x_center, 0, - 5]) linear_extrude(20) offset(r = font_offset) {
-                    text(ice_block_text, size = font_size, spacing = ice_block_text_spacing, font = ice_block_font,
+                    text(ice_block_text, size = font_size, spacing = text_spacing, font = ice_block_font,
                     halign = "center", valign = "center");
                 }
                 translate([wall_text_x_centre - wall_rhs_text_x_offset_from_centre, wall_text_y_centre,
