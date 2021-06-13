@@ -4,15 +4,15 @@
 // The lattice base is taken from the OpenSCAD forum at http://forum.openscad.org/Lattice-structure-tp21001p21009.html
 
 module lattice(sx, sy, h, th, n)
-    linear_extrude(height = h)
-        difference() {
-            square([sx, sy]);
-            m = ceil(n * sy / sx);
-            for (i = [0:n], j = [0:2 * m])
-            translate([(i + (j % 2) / 2) * sx / n, j * sx / n / 2])
-                rotate(45)
-                    square(sx / n / sqrt(2) - th, center = true);
-        }
+linear_extrude(height = h)
+    difference() {
+        square([sx, sy]);
+        m = ceil(n * sy / sx);
+        for (i = [0:n], j = [0:2 * m])
+        translate([(i + (j % 2) / 2) * sx / n, j * sx / n / 2])
+            rotate(45)
+                square(sx / n / sqrt(2) - th, center = true);
+    }
 
 // LICENSE:
 // Start MIT license (c) 2021 Mark Teese
@@ -20,7 +20,8 @@ module lattice(sx, sy, h, th, n)
 //------------------------------------------------//
 //                  TEXT MOLD                     //
 //------------------------------------------------//
-module ice_mold(ice_block_text, ice_block_font, font_size, text_spacing, mold_length_x, wall_text_lhs_top, wall_text_lhs_bottom, wall_text_rhs_top,
+module ice_mold(ice_block_text, ice_block_font, font_size, text_spacing, mold_length_x, wall_text_lhs_top,
+wall_text_lhs_bottom, wall_text_rhs_top,
 wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, wall_rhs_text_x_offset_from_centre) {
 
     font_offset = 1;
@@ -31,8 +32,8 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
     module create_ice_block_text(input_text) {
         halign = "center";
         valign = "center";
-        text(input_text, size = font_size, spacing = text_spacing, font = ice_block_font, halign = halign,
-        valign = valign);
+        text(input_text, size = font_size, spacing = text_spacing, font = ice_block_font, halign = halign, valign =
+        valign);
     }
 
     module create_ice_block_text_outline() {
@@ -161,8 +162,9 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
                 // surrounding wall
                 wall_thickness = 0.5;
                 difference() {
-                    translate([-7, -25, 3]) linear_extrude(6.5) square([mold_length_x, width_y + 1]);
-                    translate([-7 + wall_thickness, - 25 + wall_thickness, 3]) linear_extrude(11) square([mold_length_x - (wall_thickness * 2), width_y + 1 - (wall_thickness * 2)]);
+                    translate([- 7, - 25, 3]) linear_extrude(6.5) square([mold_length_x, width_y + 1]);
+                    translate([- 7 + wall_thickness, - 25 + wall_thickness, 3]) linear_extrude(11) square([mold_length_x
+                        - (wall_thickness * 2), width_y + 1 - (wall_thickness * 2)]);
                 }
             }
             // cut a hole for the ice_block_text out of the lattice
