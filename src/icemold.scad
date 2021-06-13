@@ -36,13 +36,13 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
         valign);
     }
 
-    module create_ice_block_text_outline() {
-        linear_extrude(height = ice_block_text_height) {
+    module create_ice_block_text_outline(offset_modifier=0) {
+        linear_extrude(height = ice_block_text_height * 0.65) {
             difference() {
-                offset(r = font_offset) {
+                offset(r = font_offset - offset_modifier) {
                     create_ice_block_text(ice_block_text);
                 }
-                offset(r = font_offset - 1) {
+                offset(r = font_offset - offset_modifier - 1) {
                     create_ice_block_text(ice_block_text);
                 }
             }
@@ -53,7 +53,8 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
         // text outline and base
         union() {
             translate([ice_block_x_center, 0, 1]) create_ice_block_text_outline();
-            translate([ice_block_x_center, 0, ice_block_text_height + 0.5]) linear_extrude(0.5) offset(r = font_offset)
+            translate([ice_block_x_center, 0, ice_block_text_height * 0.45]) create_ice_block_text_outline(1);
+            translate([ice_block_x_center, 0, ice_block_text_height + 0.5]) linear_extrude(0.5) offset(r = font_offset - 1)
                 {
                     text(ice_block_text, size = font_size, spacing = text_spacing, font = ice_block_font,
                     halign = "center", valign = "center");
@@ -99,14 +100,14 @@ wall_text_rhs_centre, wall_text_rhs_bottom, wall_lhs_text_x_offset_from_centre, 
     c = 3;
 
     IceCubePointsInner = [
-            [x03 + c, y0145 + a, 0], //0
-            [x12 + a, y0145 + a, 0], //1
-            [x12 + a, y23 - c, 0], //2
-            [x03 + c, y23 - c, 0], //3
-            [x47 + c, y0145 + a, z4567 - a], //4
-            [x56 + a, y0145 + a, z4567 - a], //5
-            [x56 + a, y67 - c, z4567 - a], //6
-            [x47 + c, y67 - c, z4567 - a]]; //7
+            [x03 + c,    y0145 + a,            0], //0
+            [x12 + a,    y0145 + a,            0], //1
+            [x12 + a,      y23 - c,            0], //2
+            [x03 + c,      y23 - c,            0], //3
+            [x47 + c,    y0145 + a,    z4567 - a], //4
+            [x56 + a,    y0145 + a,    z4567 - a], //5
+            [x56 + a,      y67 - c,    z4567 - a], //6
+            [x47 + c,      y67 - c,    z4567 - a]]; //7
 
 
     module create_wall_text(input_text) {
